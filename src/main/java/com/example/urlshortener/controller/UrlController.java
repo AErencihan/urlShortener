@@ -8,10 +8,7 @@ import com.example.urlshortener.service.UrlService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/url")
@@ -30,6 +27,16 @@ public class UrlController {
                 .url(shortUrl.getUrl())
                 .key(shortUrl.getKey())
                 .build(), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get/{key}")
+    public UrlDto getUrlByKey(@PathVariable String key) {
+        ShortUrl shortUrl = urlService.findUrlByKey(key);
+        return UrlDto.builder()
+                .id(shortUrl.getId())
+                .url(shortUrl.getUrl())
+                .key(shortUrl.getKey())
+                .build();
 
     }
 

@@ -21,7 +21,7 @@ public class UrlService {
 
     public ShortUrl create(RequestUrl shortUrl) {
         if (shortUrl.getKey() == null || shortUrl.getKey().isEmpty()) {
-            shortUrl.setUrl(randomGenerateUrl.generateShortUrl());
+            shortUrl.setKey(randomGenerateUrl.generateShortUrl());
         } else if (urlRepository.findByKey(shortUrl.getKey()).isPresent()) {
             throw GlobalException.builder()
                     .httpStatus(HttpStatus.BAD_REQUEST)
@@ -38,4 +38,12 @@ public class UrlService {
     }
 
 
+    public ShortUrl findUrlByKey(String key) {
+        return urlRepository.findByKey(key).orElseThrow(
+                () -> GlobalException.builder()
+                        .httpStatus(HttpStatus.NOT_FOUND)
+                        .message("Url not found")
+                        .build()
+        );
+    }
 }

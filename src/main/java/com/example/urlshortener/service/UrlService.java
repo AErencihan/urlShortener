@@ -1,7 +1,6 @@
 package com.example.urlshortener.service;
 
 
-import com.example.urlshortener.dto.UrlDto;
 import com.example.urlshortener.exception.GlobalException;
 import com.example.urlshortener.model.ShortUrl;
 import com.example.urlshortener.repository.UrlRepository;

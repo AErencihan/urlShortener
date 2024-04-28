@@ -56,6 +56,11 @@
 			<artifactId>bucket4j-core</artifactId>
 			<version>8.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
+			<version>6.3.2.RELEASE</version> <!-- Check for the latest version on Maven Central -->
+		</dependency>
 	</dependencies>
 
 	<build>

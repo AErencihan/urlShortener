@@ -19,11 +19,7 @@ import java.time.Duration;
 @EnableCaching
 public class RedisConfiguration {
 
-    @Value("${spring.data.redis.host}")
-    String redisHost = "localhost";
 
-    @Value("${spring.data.redis.port}")
-    int redisPort = 6379;
 
 
     @Bean
@@ -37,9 +33,7 @@ public class RedisConfiguration {
 
     @Bean
     LettuceConnectionFactory lettuceConnectionFactory() {
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHost, redisPort);
-        return new LettuceConnectionFactory(redisStandaloneConfiguration);
-        //return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
+        return new LettuceConnectionFactory(new RedisStandaloneConfiguration("localhost", 6379));
 
     }
 

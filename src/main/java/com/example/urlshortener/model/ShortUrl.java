@@ -10,12 +10,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity(name = "urlShort")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ShortUrl {
+public class ShortUrl implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

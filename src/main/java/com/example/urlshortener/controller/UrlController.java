@@ -35,7 +35,7 @@ public class UrlController {
 
     @GetMapping("/get/{key}")
     public void getUrlByKey(@PathVariable String key, HttpServletResponse response) {
-        ShortUrl shortUrl = urlService.findUrlByKey(key);
+        UrlDto shortUrl = urlService.findUrlByKey(key);
 
         try {
             if (shortUrl != null) {

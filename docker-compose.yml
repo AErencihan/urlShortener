@@ -11,6 +11,15 @@ services:
     networks:
       - my-network
 
+  redis-insight:
+    image: redislabs/redisinsight:1.14.0
+    container_name: redis-insight
+    ports:
+      - "8001:8001"
+    environment:
+      - REDISINSIGHT_REDIS_URI=redis://redis:6379
+    networks:
+      - my-network
 
   db:
     image: postgres
@@ -24,7 +33,7 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
     networks:
-        - my-network
+      - my-network
 
 networks:
   my-network:

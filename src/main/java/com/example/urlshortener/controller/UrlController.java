@@ -5,6 +5,7 @@ import com.example.urlshortener.dto.UrlDto;
 import com.example.urlshortener.exception.GlobalException;
 import com.example.urlshortener.model.ShortUrl;
 import com.example.urlshortener.request.RequestUrl;
+import com.example.urlshortener.service.RateLimiterService;
 import com.example.urlshortener.service.UrlService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.io.IOException;
 public class UrlController {
 
     private final UrlService urlService;
+    private final RateLimiterService rateLimiterService;
 
 
     @PostMapping("/short")
@@ -33,9 +35,10 @@ public class UrlController {
                 .build(), HttpStatus.CREATED);
     }
 
-    @GetMapping("/get/{key}")
-    public void getUrlByKey(@PathVariable String key, HttpServletResponse response) {
+    @GetMapping("/get/{key}/{userId}")
+    public void getUrlByKey(@PathVariable String key, @PathVariable String userId, HttpServletResponse response) {
         UrlDto shortUrl = urlService.findUrlByKey(key);
+        rateLimiterService.limiterControl(userId);
 
         try {
             if (shortUrl != null) {
@@ -51,7 +54,6 @@ public class UrlController {
                     .build();
         }
     }
-
 
 
 }

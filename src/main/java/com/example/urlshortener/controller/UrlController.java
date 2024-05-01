@@ -35,10 +35,10 @@ public class UrlController {
                 .build(), HttpStatus.CREATED);
     }
 
-    @GetMapping("/get/{key}/{userId}")
-    public void getUrlByKey(@PathVariable String key, @PathVariable String userId, HttpServletResponse response) {
+    @GetMapping("/get/{key}")
+    public void getUrlByKey(@PathVariable String key, HttpServletResponse response) {
         UrlDto shortUrl = urlService.findUrlByKey(key);
-        rateLimiterService.limiterControl(userId);
+        rateLimiterService.limiterControl(key);
 
         try {
             if (shortUrl != null) {

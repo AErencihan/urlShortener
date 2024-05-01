@@ -21,8 +21,8 @@ public class RateLimiterService {
     Map<String, Bucket> cache = new HashMap<>();
 
 
-    public void limiterControl(String userId) {
-        Bucket bucket = cache.computeIfAbsent(userId, k -> createBucket());
+    public void limiterControl(String key) {
+        Bucket bucket = cache.computeIfAbsent(key, k -> createBucket());
 
         if (bucket.tryConsume(1)) {
             System.out.println("accept");
@@ -36,6 +36,7 @@ public class RateLimiterService {
 
 
     private Bucket createBucket() {
+        //capacity = anlık gelen istek sayısı, refill = 1 dakikada 10 istek
         Bandwidth limit = Bandwidth.classic(4, Refill.intervally(10, Duration.ofMinutes(1)));
         return Bucket.builder().addLimit(limit).build();
 
